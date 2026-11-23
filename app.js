@@ -121,7 +121,7 @@ function pointOnFace(face, horizontal, vertical) {
   return add(add(geometry.normal, geometry.horizontal, horizontal), geometry.vertical, vertical);
 }
 function project(point, width, height) {
-  const rotated = rotatePoint(point); const factor = 4.8 / (4.8 - rotated[2]); const scale = Math.min(width, height) * .29;
+  const rotated = rotatePoint(point); const factor = 4.8 / (4.8 - rotated[2]); const scale = Math.min(width, height) * (window.innerWidth <= 720 ? .265 : .29);
   return { x: width / 2 + rotated[0] * scale * factor, y: height / 2 - rotated[1] * scale * factor, z: rotated[2], factor };
 }
 function polygon(context, points, fill, stroke, width = 1) {

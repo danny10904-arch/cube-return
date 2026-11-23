@@ -31,6 +31,11 @@ global.document = {
 
 vm.runInThisContext(fs.readFileSync("app.js", "utf8"));
 assert.ok(elements.get("#cubeCanvas").drawCalls >= 60, "The Canvas renderer should draw all six faces and 54 stickers.");
+const desktopProjection = vm.runInThisContext("project([1, 0, 0], 400, 400).x");
+window.innerWidth = 390;
+const mobileProjection = vm.runInThisContext("project([1, 0, 0], 400, 400).x");
+assert.ok(mobileProjection < desktopProjection, "The cube should render slightly smaller on mobile screens.");
+delete window.innerWidth;
 
 const initialYaw = vm.runInThisContext("rotation.y");
 elements.get("#cubeCanvas").listeners.pointerdown({

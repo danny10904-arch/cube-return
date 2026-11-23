@@ -141,6 +141,8 @@ footer { padding: 22px; border-top: 1px solid var(--line); color: #77919a; backg
   .intro { margin-bottom: 28px; }
   .workbench { grid-template-columns: 1fr; }
   .view-control { border-right: 0; border-bottom: 1px solid var(--line); }
+  .view-control .link-button { border-color: var(--white); color: #09212a; background: var(--white); }
+  .view-control .link-button:hover { border-color: var(--white); color: #09212a; background: #ffffff; }
   .cube-area { padding: 16px 10px 22px; }
   .cube-scene { height: 315px; }
   .cube-hint { margin-top: 1px; }
