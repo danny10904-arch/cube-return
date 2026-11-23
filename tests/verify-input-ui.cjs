@@ -96,6 +96,7 @@ order.forEach((face, faceIndex) => {
 assert.match(elements.get("#validity").textContent, /有效/, "A complete legal cube state should pass validation.");
 vm.runInThisContext("solverReady = true; render();");
 assert.equal(elements.get("#solveButton").disabled, false, "A valid scrambled cube should enable the 20-step solve button once the solver is ready.");
+assert.equal(elements.get("#mobileSolutionActions").hidden, true, "Mobile playback controls should remain hidden until a formula has been generated.");
 vm.runInThisContext("solverReady = false; render();");
 assert.equal(elements.get("#solveButton").disabled, false, "A completed cube should keep the solve button clickable while the solver is still preparing.");
 vm.runInThisContext("solverReady = true; render();");
@@ -119,6 +120,8 @@ assert.equal(vm.runInThisContext("viewAdjustedMove('F')"), "R", "Formula notatio
 vm.runInThisContext("solution = ['R', 'U']; solutionStart = validateCube().cube.toJSON(); solutionCube = new Cube(solutionStart); solutionIndex = 0; hasSolution = true; render();");
 assert.match(elements.get("#orientationGuide").textContent, /前：藍/, "The orientation guide should identify the colour currently facing the user.");
 assert.equal(elements.get("#baseFormula").textContent, "R U", "The original centre-based formula should remain available after the view formula is remapped.");
+assert.equal(elements.get("#mobileSolutionActions").hidden, false, "Mobile playback controls should appear when a formula is available.");
+assert.equal(typeof elements.get("#mobileNextMove").listeners.click, "function", "The mobile next-step button should trigger guided playback.");
 document.querySelector("#animationSpeed").value = "0";
 assert.equal(vm.runInThisContext("animationDuration()"), 600, "The speed slider should use 0.6 seconds at the fast endpoint without displaying a numeric duration.");
 document.querySelector("#animationSpeed").value = "50";
