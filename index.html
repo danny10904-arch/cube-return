@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0b1520" />
+    <title>CUBE RETURN｜3×3 還原指導器</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Noto+Sans+TC:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="vendor/cubejs/cube.js"></script>
+    <script src="vendor/cubejs/solve.js"></script>
+  </head>
+  <body>
+    <header>
+      <a class="brand" href="#top"><span class="brand-mark"><i></i><i></i><i></i><i></i></span>CUBE <em>RETURN</em></a>
+      <p>點選貼紙，輸入你手上方塊的顏色</p>
+      <span class="solver-status" id="solverStatus"><i></i> 正在準備求解器</span>
+    </header>
+
+    <main id="top">
+      <section class="intro">
+        <p class="eyebrow">3×3 STATE SOLVER</p>
+        <h1>看著方塊，<strong>把顏色填進去。</strong></h1>
+        <p>中心塊已固定：上黃、下白、前紅、右綠、後橘、左藍。點選任一邊塊或角塊貼紙即可選色；填滿後再檢查是否為可還原的真實方塊。</p>
+      </section>
+
+      <section class="workbench" aria-label="魔術方塊輸入器">
+        <aside class="view-control">
+          <button class="link-button" id="clearCube" type="button">清空所有貼紙</button>
+        </aside>
+
+        <section class="cube-area">
+          <div class="cube-scene" id="cubeScene">
+            <canvas id="cubeCanvas" aria-label="可自由旋轉的立體 3×3 魔術方塊" role="img"></canvas>
+          </div>
+          <p class="cube-hint"><span></span> 點擊貼紙選色；方向鍵依目前視角換格，<kbd>1</kbd>黃 <kbd>2</kbd>白 <kbd>3</kbd>紅 <kbd>4</kbd>綠 <kbd>5</kbd>藍 <kbd>6</kbd>橘</p>
+          <div class="color-picker" id="colorPicker" hidden>
+            <div><span id="pickerLabel">選擇顏色</span><button id="clearSticker" type="button">清除此格</button></div>
+            <div class="color-options" id="colorOptions"></div>
+          </div>
+        </section>
+
+        <aside class="solution-panel">
+          <div class="status-line"><span id="fillCount">已填入 0 / 48</span><span id="validity">等待輸入</span></div>
+          <div class="solution-empty" id="solutionEmpty"><b>先完成方塊配色。</b><p>所有邊塊、角塊都填完後，我會檢查可行性，然後提供 20 步模式的還原公式。</p></div>
+          <div class="solution-content" id="solutionContent" hidden>
+            <p class="eyebrow">VIEW-ADAPTIVE FORMULA</p>
+            <div class="solution-count" id="solutionCount">0 步</div>
+            <p class="base-formula"><span>固定中心公式</span><code id="baseFormula"></code></p>
+            <p class="orientation-guide" id="orientationGuide"></p>
+            <label class="animation-speed" for="animationSpeed"><span>較慢</span><b>連續播放速度</b><span>較快</span><input id="animationSpeed" type="range" min="0" max="100" step="1" value="50" /></label>
+            <div class="moves" id="moves"></div>
+            <div class="current-move"><span>CURRENT MOVE</span><b id="currentMove">—</b><p id="moveGuide">按下一步播放一個轉層動畫。</p></div>
+            <div class="solution-actions"><button id="restart" type="button">重來</button><button id="animateToggle" type="button">連續播放</button><button class="primary" id="nextMove" type="button">下一步</button></div>
+          </div>
+          <button class="solve-button" id="solveButton" type="button" disabled>產生公式</button>
+          <p class="privacy">求解與驗證都在本機瀏覽器內完成。</p>
+        </aside>
+      </section>
+
+      <section class="legend">
+        <span><i class="yellow"></i>上 黃</span><span><i class="white"></i>下 白</span><span><i class="red"></i>前 紅</span><span><i class="green"></i>右 綠</span><span><i class="orange"></i>後 橘</span><span><i class="blue"></i>左 藍</span>
+      </section>
+    </main>
+    <footer>20 步模式以 HTM 計算，半轉（如 R2）算 1 步。</footer>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script src="app.js"></script>
+  </body>
+</html>
