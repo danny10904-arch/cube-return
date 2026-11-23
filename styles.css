@@ -110,6 +110,7 @@ h1 strong { color: var(--mint); font-weight: inherit; }
 .current-move p { margin: 0; color: var(--muted); font-size: 14px; }
 .solution-actions { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 10px; }
 .solution-actions-mobile { display: none; }
+.animation-speed-mobile { display: none; }
 .solution-actions button, .solve-button { min-height: 43px; border: 1px solid var(--line); border-radius: 5px; color: var(--ink); background: transparent; font-size: 14px; font-weight: 700; }
 .solution-actions .primary, .solve-button:not(:disabled) { border-color: var(--mint); color: #06221b; background: var(--mint); }
 .solve-button { width: 100%; margin-top: 18px; }
@@ -143,7 +144,9 @@ footer { padding: 22px; border-top: 1px solid var(--line); color: #77919a; backg
   .cube-area { padding: 16px 10px 22px; }
   .cube-scene { height: 315px; }
   .cube-hint { margin-top: 1px; }
+  .animation-speed-mobile:not([hidden]) { display: grid; width: min(100%, 440px); margin: 10px 0 0; }
   .solution-actions-mobile:not([hidden]) { display: grid; width: min(100%, 440px); margin: 7px 0 12px; }
+  .solution-content > .animation-speed { display: none; }
   .solution-content > .solution-actions { display: none; }
   .solution-panel { grid-column: auto; padding: 22px; }
   .legend { justify-content: flex-start; gap: 10px 15px; }

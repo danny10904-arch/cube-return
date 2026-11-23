@@ -215,6 +215,7 @@ function renderSolution() {
   $("#solutionEmpty").hidden = hasSolution;
   $("#solutionContent").hidden = !hasSolution;
   $("#mobileSolutionActions").hidden = !hasSolution;
+  $("#mobileAnimationSpeedControl").hidden = !hasSolution;
   if (!hasSolution) return;
   const done = solutionIndex >= solution.length;
   const move = solution[solutionIndex];
@@ -241,6 +242,10 @@ function animationDuration() {
   const position = Number($("#animationSpeed").value);
   if (!Number.isFinite(position)) return 1200;
   return position <= 50 ? 600 + position * 12 : 1200 + (position - 50) * 16;
+}
+function syncAnimationSpeed(value) {
+  $("#animationSpeed").value = value;
+  $("#mobileAnimationSpeed").value = value;
 }
 function render() { lockCentres(); renderCube(); renderPicker(); renderSolution(); }
 function cross(a, b) { return [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]]; }
@@ -424,6 +429,8 @@ function bind() {
   $("#clearSticker").addEventListener("click", () => { if (!selected) return; changeSticker(null); });
   $("#clearCube").addEventListener("click", clearCube);
   $("#solveButton").addEventListener("click", solve); $("#nextMove").addEventListener("click", nextMove); $("#mobileNextMove").addEventListener("click", nextMove); $("#restart").addEventListener("click", restart); $("#mobileRestart").addEventListener("click", restart); $("#animateToggle").addEventListener("click", toggleAnimation); $("#mobileAnimateToggle").addEventListener("click", toggleAnimation);
+  $("#animationSpeed").addEventListener("input", () => syncAnimationSpeed($("#animationSpeed").value));
+  $("#mobileAnimationSpeed").addEventListener("input", () => syncAnimationSpeed($("#mobileAnimationSpeed").value));
   $("#moves").addEventListener("click", (event) => { const move = event.target.closest("[data-step]"); if (move) jumpToStep(Number(move.dataset.step)); });
   $("#moves").addEventListener("keydown", (event) => { if (event.key === "Enter" || event.key === " ") { const move = event.target.closest("[data-step]"); if (move) { event.preventDefault(); jumpToStep(Number(move.dataset.step)); } } });
 

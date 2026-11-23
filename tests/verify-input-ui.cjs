@@ -122,6 +122,10 @@ assert.match(elements.get("#orientationGuide").textContent, /前：藍/, "The or
 assert.equal(elements.get("#baseFormula").textContent, "R U", "The original centre-based formula should remain available after the view formula is remapped.");
 assert.equal(elements.get("#mobileSolutionActions").hidden, false, "Mobile playback controls should appear when a formula is available.");
 assert.equal(typeof elements.get("#mobileNextMove").listeners.click, "function", "The mobile next-step button should trigger guided playback.");
+assert.equal(elements.get("#mobileAnimationSpeedControl").hidden, false, "Mobile speed controls should appear above the mobile playback buttons.");
+elements.get("#mobileAnimationSpeed").value = "100";
+elements.get("#mobileAnimationSpeed").listeners.input({});
+assert.equal(elements.get("#animationSpeed").value, "100", "The mobile speed control should stay synchronised with the desktop control.");
 document.querySelector("#animationSpeed").value = "0";
 assert.equal(vm.runInThisContext("animationDuration()"), 600, "The speed slider should use 0.6 seconds at the fast endpoint without displaying a numeric duration.");
 document.querySelector("#animationSpeed").value = "50";
