@@ -214,6 +214,7 @@ function renderSolution() {
   $("#solveButton").disabled = filledCount() < 48 || solving;
   $("#solutionEmpty").hidden = hasSolution;
   $("#solutionContent").hidden = !hasSolution;
+  $("#mobileSolutionActions").hidden = !hasSolution;
   if (!hasSolution) return;
   const done = solutionIndex >= solution.length;
   const move = solution[solutionIndex];
@@ -226,9 +227,14 @@ function renderSolution() {
   $("#moves").innerHTML = solution.map((move, index) => `<span class="move ${index < solutionIndex ? "done" : index === solutionIndex ? "current" : ""}" data-step="${index}" role="button" tabindex="0" title="從這一步開始；固定公式：${move}">${viewAdjustedMove(move)}</span>`).join("");
   $("#currentMove").textContent = done ? "✓" : viewAdjustedMove(move);
   $("#moveGuide").textContent = done ? "完成，方塊已還原。" : `${moveText(move)} 固定公式：${move}。`;
-  $("#nextMove").disabled = done || Boolean(animation) || animationPlaying;
-  $("#animateToggle").textContent = animationPlaying ? "暫停播放" : done ? "從頭播放" : "連續播放";
+  const nextDisabled = done || Boolean(animation) || animationPlaying;
+  const playbackLabel = animationPlaying ? "暫停播放" : done ? "從頭播放" : "連續播放";
+  $("#nextMove").disabled = nextDisabled;
+  $("#mobileNextMove").disabled = nextDisabled;
+  $("#animateToggle").textContent = playbackLabel;
+  $("#mobileAnimateToggle").textContent = playbackLabel;
   $("#animateToggle").disabled = Boolean(animation) && !animationPlaying;
+  $("#mobileAnimateToggle").disabled = Boolean(animation) && !animationPlaying;
 }
 
 function animationDuration() {
@@ -417,7 +423,7 @@ function bind() {
   $("#colorOptions").addEventListener("click", (event) => { const button = event.target.closest("[data-color]"); if (button && !button.disabled) changeSticker(button.dataset.color); });
   $("#clearSticker").addEventListener("click", () => { if (!selected) return; changeSticker(null); });
   $("#clearCube").addEventListener("click", clearCube);
-  $("#solveButton").addEventListener("click", solve); $("#nextMove").addEventListener("click", nextMove); $("#restart").addEventListener("click", restart); $("#animateToggle").addEventListener("click", toggleAnimation);
+  $("#solveButton").addEventListener("click", solve); $("#nextMove").addEventListener("click", nextMove); $("#mobileNextMove").addEventListener("click", nextMove); $("#restart").addEventListener("click", restart); $("#mobileRestart").addEventListener("click", restart); $("#animateToggle").addEventListener("click", toggleAnimation); $("#mobileAnimateToggle").addEventListener("click", toggleAnimation);
   $("#moves").addEventListener("click", (event) => { const move = event.target.closest("[data-step]"); if (move) jumpToStep(Number(move.dataset.step)); });
   $("#moves").addEventListener("keydown", (event) => { if (event.key === "Enter" || event.key === " ") { const move = event.target.closest("[data-step]"); if (move) { event.preventDefault(); jumpToStep(Number(move.dataset.step)); } } });
 

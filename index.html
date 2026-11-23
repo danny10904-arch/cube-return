@@ -35,6 +35,9 @@
           <div class="cube-scene" id="cubeScene">
             <canvas id="cubeCanvas" aria-label="可自由旋轉的立體 3×3 魔術方塊" role="img"></canvas>
           </div>
+          <div class="solution-actions solution-actions-mobile" id="mobileSolutionActions" hidden aria-label="公式播放控制">
+            <button id="mobileRestart" type="button">重來</button><button id="mobileAnimateToggle" type="button">連續播放</button><button class="primary" id="mobileNextMove" type="button">下一步</button>
+          </div>
           <p class="cube-hint"><span></span> 點擊貼紙選色；方向鍵依目前視角換格，<kbd>1</kbd>黃 <kbd>2</kbd>白 <kbd>3</kbd>紅 <kbd>4</kbd>綠 <kbd>5</kbd>藍 <kbd>6</kbd>橘</p>
           <div class="color-picker" id="colorPicker" hidden>
             <div><span id="pickerLabel">選擇顏色</span><button id="clearSticker" type="button">清除此格</button></div>
